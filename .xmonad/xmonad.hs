@@ -77,7 +77,7 @@ myWallpaperSetter =
     }
 
 main = do
-  xmproc <- spawnPipe "xmobar ~/.xmobar/xmobarrc"
+  xmproc <- spawnPipe "xmobar"
   xmonad $
     docks
       def
