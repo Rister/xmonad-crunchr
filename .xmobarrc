@@ -4,7 +4,7 @@ Config {
     , border = TopBM 5
     , bgColor = "black"
     , fgColor = "white"
-    , position = TopSize L 80 32
+    , position = TopSize L 80 24
     , commands = [
                          Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem:<usedratio>%"] 10
