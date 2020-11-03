@@ -1,0 +1,20 @@
+Config {
+    font = "xft:Noto Mono-8:"
+    , borderColor = "black"
+    , border = TopBM 5
+    , bgColor = "black"
+    , fgColor = "white"
+    , position = TopSize L 80 32
+    , commands = [
+                         Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                        , Run Memory ["-t","Mem:<usedratio>%"] 10
+                        , Run Swap ["-t","Swp:<usedratio>%"] 10
+                        , Run Com "uname" ["-n"] "" 36000
+                        , Run Date "%V-%a %Y-%m-%d %H:%M" "date" 100
+                        , Run StdinReader
+                        , Run Com "whoami" [] ""  36000
+    ]
+    , sepChar = "%"
+    , alignSep = "}{"
+    , template = "%StdinReader% }{|%cpu%|%memory%*%swap%|<fc=#ee9a00>%date%</fc>|%whoami%@%uname%|   "
+    }
