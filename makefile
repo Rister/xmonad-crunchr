@@ -8,9 +8,5 @@ clean:
 
 
 install:
-	cp .xmobarrc ~/.xmobarrc
-	cp -ru .xmonad/
-	
-	
-	
-	 ~/.xmonad
+	cp -ru .xmonad/ ~/
+	cp -ru .xmobar/ ~/
