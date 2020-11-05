@@ -29,7 +29,9 @@ myNormalBorderColor = "#00FF00"
 
 myBorderWidth = 2
 
-myBorder = Border myBorderWidth myBorderWidth myBorderWidth myBorderWidth
+myGap = 2
+
+myBorder = Border myGap myGap myGap myGap
 
 myTerminal = "uxterm"
 
