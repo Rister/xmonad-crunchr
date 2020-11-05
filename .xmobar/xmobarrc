@@ -1,20 +1,37 @@
 Config {
-    font = "xft:Noto Mono-9:"
-    , borderColor = "black"
-    , border = TopBM 1
-    , bgColor = "black"
-    , fgColor = "white"
-    , position = TopSize L 80 24
-    , commands = [
-                         Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                        , Run Memory ["-t","Mem:<usedratio>%"] 10
-                        , Run Swap ["-t","Swp:<usedratio>%"] 10
-                        , Run Com "uname" ["-n"] "" 36000
-                        , Run Date "%V-%a %Y-%m-%d %H:%M" "date" 100
-                        , Run StdinReader
-                        , Run Com "whoami" [] ""  36000
-    ]
-    , sepChar = "%"
-    , alignSep = "}{"
-    , template = "<fc=#33CC44>%StdinReader%</fc> }{|%cpu%|%memory%*%swap%|<fc=#ee9a00>%date%</fc>|%whoami%@%uname%|   "
-    }
+         font = "xft:Noto Mono-8:"
+       , borderColor = "black"
+       , border = TopBM 1
+       , bgColor = "black"
+       , fgColor = "white"
+       , position = TopSize L 80 24
+       , commands = [
+                Run Cpu [
+                       "-L","3"
+                     , "-H","50"
+                     , "--normal","green"
+                     , "--high","red"
+              ] 10
+              , Run Memory ["-t","Mem:<usedratio>%"] 10
+              , Run Swap ["-t","Swp:<usedratio>%"] 10
+              , Run Com "uname" ["-n"] "" 36000
+              , Run Date "%V-%a %Y-%m-%d %H:%M" "date" 100
+              , Run StdinReader
+              , Run Com "whoami" [] ""  36000
+              , Run Battery [
+                       "--template", "B: <acstatus>"
+                     , "--L", "20"
+                     , "--H", "75"
+                     , "--low", "darkred"
+                     , "--normal", "darkorange"
+                     , "--high", "#1ABC9C"
+                     , "--"
+                     , "-o" , "<left>% (<timeleft>)"
+                     , "-o", "<fc=#dAA520>Charging</fc>"
+                     , "-i", "<fc=#1ABC9C>Charged</fc>"
+                     ] 100
+       ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "<fc=#33CC44>%StdinReader%</fc> }{|%cpu%|%memory%*%swap%|%battery%|<fc=#ee9a00>%date%</fc>|%whoami%@%uname%|   "
+}
