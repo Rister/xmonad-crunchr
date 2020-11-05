@@ -1,4 +1,4 @@
-xmonad: xmonad.hs
+xmonad:
 	ghc .xmonad/xmonad.hs
 
 clean:
@@ -10,3 +10,4 @@ clean:
 install:
 	cp -ru .xmonad/ ~/
 	cp -ru .xmobar/ ~/
+	cp -u .xresources ~/
