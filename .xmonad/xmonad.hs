@@ -4,8 +4,11 @@
 
 import System.IO
 import XMonad
+import XMonad.Actions.GridSelect
+import XMonad.Actions.SpawnOn
 import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.WallpaperSetter
 import XMonad.Layout.Circle
@@ -26,7 +29,7 @@ myNormalBorderColor = "#00FF00"
 
 myBorderWidth = 2
 
-myTerminal = "terminology"
+myTerminal = "uxterm"
 
 myWorkspaces =
   [ "web",
@@ -54,6 +57,7 @@ myLayoutHook =
     defLayout =
       avoidStruts $
         mySpacing (Grid False)
+          ||| mySpacing (Grid True)
           ||| mySpacing (smartBorders (ThreeColMid 1 (3 / 100) (3 / 4)))
           ||| noBorders (Circle)
           ||| noBorders (Full)
@@ -69,9 +73,16 @@ myLayoutHook =
 --      ||| ResizableTall 1 (3 / 100) (1 / 2) []
 --      ||| Mirror (ResizableTall 1 (3 / 100) (1 / 2) [])
 
+-- Settings for my utility menu
+myGSUtils =
+  [ ("Countdown Timer", (spawnOn "term" "xterm -e termdown 10s"))
+  ]
+
 -- custom keybindings
 myKeys =
-  [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"), -- Lock screen with Mod-Shift-z
+  [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"), -- Lock screen with Mod-Shift-z`
+    ((mod4Mask, xK_g), goToSelected def),
+    ((mod4Mask, xK_u), runSelectedAction def myGSUtils),
     ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s"), -- screenshot Window with Ctrl-PrintScreen
     ((0, xK_Print), spawn "scrot") -- screenshot entire screen with PrintScreen
   ]
@@ -82,7 +93,7 @@ myManageHook =
       className =? "Discord" --> doShift "coms",
       className =? "yakyak" --> doShift "coms",
       className =? "Brave" --> doShift "web",
-      title =? "MyZettelkasten" --> doShift "zk",
+      className =? "MyZettelkasten" --> doShift "zk",
       manageDocks
     ]
 
@@ -97,33 +108,33 @@ myStartupHook = do
 
 -- I need to look into this more TODO
 
--- myLogHook =
-
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $
-    docks
-      def
-        { layoutHook = myLayoutHook,
-          startupHook = myStartupHook,
-          manageHook = myManageHook <+> manageHook def,
-          normalBorderColor = myNormalBorderColor,
-          focusedBorderColor = myFocusedBorderColor,
-          borderWidth = myBorderWidth,
-          terminal = myTerminal,
-          modMask = myModMask,
-          logHook = do
-            updatePointer (1, 1) (0, 0)
-            wallpaperSetter
-              defWallpaperConf
-                { wallpapers =
-                    defWPNames myWorkspaces
-                      <> WallpaperList
-                        [ ("9:DUMP", WallpaperFix "9.jpg")
-                        ]
-                }
-            dynamicLogWithPP xmobarPP {ppOutput = hPutStrLn xmproc, ppTitle = xmobarColor "#00FF30" "" . shorten 150},
-          -- focusFollowsMouse = False,
-          workspaces = myWorkspaces
-        }
-      `additionalKeys` myKeys
+    docks $
+      ewmh
+        def
+          { layoutHook = myLayoutHook,
+            startupHook = myStartupHook,
+            manageHook = myManageHook <+> manageHook def,
+            normalBorderColor = myNormalBorderColor,
+            focusedBorderColor = myFocusedBorderColor,
+            borderWidth = myBorderWidth,
+            terminal = myTerminal,
+            modMask = myModMask,
+            logHook = do
+              updatePointer (1, 1) (0, 0)
+              wallpaperSetter
+                defWallpaperConf
+                  { wallpapers =
+                      defWPNames myWorkspaces
+                        <> WallpaperList
+                          [ ("9:DUMP", WallpaperFix "9.jpg")
+                          ]
+                  }
+              dynamicLogWithPP xmobarPP {ppOutput = hPutStrLn xmproc, ppTitle = xmobarColor "#00FF30" "" . shorten 150},
+            focusFollowsMouse = False,
+            clickJustFocuses = False,
+            workspaces = myWorkspaces
+          }
+        `additionalKeys` myKeys
