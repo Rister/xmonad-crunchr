@@ -141,8 +141,8 @@ main = do
                           ]
                   }
               dynamicLogWithPP xmobarPP {ppOutput = hPutStrLn xmproc, ppTitle = xmobarColor "#00FF30" "" . shorten 150},
-            focusFollowsMouse = False,
-            clickJustFocuses = False,
+            -- focusFollowsMouse = False,
+            -- clickJustFocuses = False,
             workspaces = myWorkspaces
           }
         `additionalKeys` myKeys
