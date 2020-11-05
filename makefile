@@ -10,4 +10,4 @@ clean:
 install:
 	cp -ru .xmonad/ ~/
 	cp -ru .xmobar/ ~/
-	cp -u .xresources ~/
+	cp -u .Xresources ~/
