@@ -84,13 +84,14 @@ myLayoutHook =
 
 -- Settings for my utility menu
 myGSUtils =
-  [ ("Countdown Timer", (spawnOn "term" "xterm -e termdown 10s"))
+  [ ("XRANDR - Single Screen", (spawn "bash ~/.xprofile.onescreen")),
+    ("XRANDR - Dual Screens", (spawn "bash ~/.xprofile"))
   ]
 
 -- custom keybindings
 myKeys =
   [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"), -- Lock screen with Mod-Shift-z`
-    ((mod4Mask, xK_g), goToSelected def),
+  --((mod4Mask, xK_g), goToSelected def),
     ((mod4Mask, xK_u), runSelectedAction def myGSUtils),
     ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s"), -- screenshot Window with Ctrl-PrintScreen
     ((0, xK_Print), spawn "scrot") -- screenshot entire screen with PrintScreen
@@ -113,8 +114,6 @@ myStartupHook = do
   spawnOnce "volumeicon &" -- Volume tray icon
   spawnOnce "xscreensaver -no-splash &" -- Start the screensaver daemon
   spawnOnce "syncthing-gtk &" -- Start my Sync Client
-
--- I need to look into this more TODO
 
 main = do
   xmproc <- spawnPipe "xmobar"
