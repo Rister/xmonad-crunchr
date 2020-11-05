@@ -1,4 +1,4 @@
-xmonad:
+xmonad: xmonad.hs
 	ghc .xmonad/xmonad.hs
 
 clean:
