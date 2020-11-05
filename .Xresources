@@ -1,14 +1,11 @@
-!!! .Xresources file!!!
+!!! .Xresources file !!!
 ! Comments start with !, C style # define statements can be used only if
 ! this file is processed with xrdb -merge $HOME/.Xresources
 
-! #ifdef COLOR
-!     *customization: -color
-! #endif
 
-! #define FONT -*-UnifontMedium-*-*-*-*-*-110-*-*-*-*-*-*
-
-!!! Setting the ttf Font Face !!!
+!!!!!!!!!!!!!!!!
+!!! Setting the ttf Font Face
+!!!!!!!!!!!!!!!!
 
 XTerm*faceName: Unifont
 XTerm*faceSize: 9
@@ -25,7 +22,10 @@ xterm*faceSize4: 16
 ! VT font menu: Huge
 xterm*faceSize5: 22
 
-!!! Setting XTerm Colors !!!
+!!!!!!!!!!!!!!!!
+!!! Setting XTerm Colors
+!!!!!!!!!!!!!!!!
+
 *background: #000000
 *foreground: #ffffff
 *color0:     #000000
@@ -51,11 +51,12 @@ XTerm*PointerColorBackground: white
 XTerm*cursorColor: black
 XTerm*pointerShape: double_arrow
 
+!!!!!!!!!!!!!!!!
+!!! Unused Keys
+!!!!!!!!!!!!!!!!
+
 ! XTerm*font: 
 ! XTerm*internalBorder:
 ! XTerm*LoginShell:
 ! XTerm*scrollBar:
 ! XTerm*xcrollKey:
-
-
-! Color theme (especially for terminal like xterm)
