@@ -29,6 +29,8 @@ myNormalBorderColor = "#00FF00"
 
 myBorderWidth = 2
 
+myBorder = Border myBorderWidth myBorderWidth myBorderWidth myBorderWidth
+
 myTerminal = "uxterm"
 
 myWorkspaces =
@@ -43,32 +45,37 @@ myWorkspaces =
     "9:DUMP"
   ]
 
-mySpacing = spacingRaw True (Border 3 3 3 3) False (Border 3 3 3 3) True
+mySpacing = spacingRaw True myBorder False myBorder True
 
 myLayoutHook =
-  onWorkspace "web" defLayout $
+  onWorkspace "web" myDefaultLayouts $
     onWorkspace "zk" myZKLayouts $
-      onWorkspace "coms" defLayout $
+      onWorkspace "coms" myComsLayouts $
         onWorkspace "term" myTermLayouts $
-          onWorkspaces (map show [5 .. 8]) defLayout $
-            onWorkspace "9:DUMP" defLayout $
+          onWorkspaces (map show [5 .. 8]) myDefaultLayouts $
+            onWorkspace "9:DUMP" myDefaultLayouts $
               smartBorders (layoutHook def)
   where
-    defLayout =
+    myDefaultLayouts =
       avoidStruts $
         mySpacing (Grid False)
           ||| mySpacing (Grid True)
           ||| mySpacing (smartBorders (ThreeColMid 1 (3 / 100) (3 / 4)))
           ||| noBorders (Circle)
           ||| noBorders (Full)
-    myTermLayouts =
-      noBorders Full
-        ||| avoidStruts (mySpacing $ Grid False)
-        ||| avoidStruts Circle
+    myComsLayouts =
+      avoidStruts $
+        mySpacing (Grid False)
+          ||| mySpacing (Grid True)
+          ||| mySpacing (Full)
     myZKLayouts =
       avoidStruts $
         noBorders Full
           ||| Circle
+    myTermLayouts =
+      noBorders Full
+        ||| avoidStruts (mySpacing $ Grid False)
+        ||| avoidStruts Circle
 
 --      ||| ResizableTall 1 (3 / 100) (1 / 2) []
 --      ||| Mirror (ResizableTall 1 (3 / 100) (1 / 2) [])
