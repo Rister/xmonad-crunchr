@@ -3,10 +3,10 @@
 This configuration utilizes
 
 - xmonad configuration
-  - .xmonad/xmonad.hs
+  - `.xmonad/xmonad.hs`
 - xmobar configuration
-  - .xmobar/xmobarrc
+  - `.xmobar/xmobarrc`
 - uxterm
-  - .xproffklns
+  - `.Xresources`
 - x session configuration
-  - .xsessionrc
+  - `.xsessionrc`
