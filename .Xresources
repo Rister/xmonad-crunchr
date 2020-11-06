@@ -28,26 +28,42 @@ xterm*faceSize6: 30
 !!! Setting XTerm Colors
 !!!!!!!!!!!!!!!!
 
-*background: #000000
-*foreground: #ffffff
+! black
 *color0:     #000000
-*color1:     #d36265
-*color2:     #aece91
-*color3:     #e7e18c
-*color4:     #7a7ab0
-*color5:     #963c59
-*color6:     #418179
-*color7:     #bebebe
-*color8:     #666666
-*color9:     #ef8171
-*color10:    #e5f779
-*color11:    #fff796
-*color12:    #4186be
-*color13:    #ef9ebe
-*color14:    #71bebe
+!red
+*color1:     #ff7092
+!green
+*color2:     #00fbac
+!yellow
+*color3:     #fffa6a
+!blue
+*color4:     #00bfff
+!purple
+*color5:     #df95ff
+!cyan
+*color6:     #86cbfe
+!white
+*color7:     #ffffff
+!brightBlack
+*color8:     #000000
+!brightRed
+*color9:     #ff8aa4
+!brightGreen
+*color10:    #21f6bc
+!brightYellow
+*color11:    #fff787
+!brightBlue
+*color12:    #1bccfd
+!brightPurple
+*color13:    #e6zefe
+!brightCyan
+*color14:    #99d6fc
+!brightWhite
 *color15:    #ffffff
-XTerm*background: white
-XTerm*foreground: black
+
+*background: #332a57
+*foreground: #e5e5e5
+
 XTerm*pointerColor: black
 XTerm*PointerColorBackground: white
 XTerm*cursorColor: black
