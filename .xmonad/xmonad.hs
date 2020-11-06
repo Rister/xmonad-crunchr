@@ -11,11 +11,17 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.WallpaperSetter
+import XMonad.Layout.Accordion
 import XMonad.Layout.Circle
 import XMonad.Layout.HintedGrid
+import XMonad.Layout.Mosaic
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Roledex
+import XMonad.Layout.Simplest
+import XMonad.Layout.SortedLayout
 import XMonad.Layout.Spacing
+import XMonad.Layout.Spiral
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Run
@@ -65,19 +71,28 @@ myLayoutHook =
           ||| mySpacing (smartBorders (ThreeColMid 1 (3 / 100) (3 / 4)))
           ||| noBorders (Circle)
           ||| noBorders (Full)
+          ||| Simplest
+          ||| spiral (16 / 10)
+          ||| Roledex
+          ||| mosaic 2 [3, 2]
+          ||| Accordion
     myComsLayouts =
       avoidStruts $
-        mySpacing (Grid False)
-          ||| mySpacing (Grid True)
-          ||| mySpacing (Full)
+        sorted [ClassName "Discord", ClassName "Thunderbird", ClassName "yakyak"] $
+          mySpacing (Grid False)
+            ||| mySpacing (Grid True)
+            ||| mySpacing (Full)
     myZKLayouts =
       avoidStruts $
         noBorders Full
           ||| Circle
+          ||| Simplest
+          ||| spiral (16 / 10)
     myTermLayouts =
       noBorders Full
         ||| avoidStruts (mySpacing $ Grid False)
         ||| avoidStruts Circle
+        ||| spiral (16 / 10)
 
 --      ||| ResizableTall 1 (3 / 100) (1 / 2) []
 --      ||| Mirror (ResizableTall 1 (3 / 100) (1 / 2) [])
