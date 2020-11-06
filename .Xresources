@@ -15,12 +15,14 @@ XTerm*renderFont: true
 xterm*faceSize1: 3
 ! VT font menu: Tiny
 xterm*faceSize2: 6
-! VT font menu: Medium
+! VT font menu: Small
 xterm*faceSize3: 11
-! VT font menu: Large
+! VT font menu: Medium
 xterm*faceSize4: 16
-! VT font menu: Huge
+! VT font menu: Large
 xterm*faceSize5: 22
+! VT font menu: Huge
+xterm*faceSize6: 30
 
 !!!!!!!!!!!!!!!!
 !!! Setting XTerm Colors
