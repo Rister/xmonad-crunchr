@@ -33,7 +33,7 @@ myGap = 2
 
 myBorder = Border myGap myGap myGap myGap
 
-myTerminal = "uxterm"
+myTerminal = "alacritty"
 
 myWorkspaces =
   [ "web",
