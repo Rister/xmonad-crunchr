@@ -9,7 +9,7 @@
 !!! Setting the ttf Font Face
 !!!!!!!!!!!!!!!!
 
-*faceName: Unifont
+*faceName: Ubuntu Mono
 *faceSize: 10
 *renderFont: true
 *forceBoxChars: true
