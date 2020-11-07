@@ -95,4 +95,4 @@ bell:
 background_opacity: 1.0
 
 cursor:
-  style: Underline
+  style: Block
