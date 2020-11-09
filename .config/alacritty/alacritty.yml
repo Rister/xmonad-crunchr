@@ -1,23 +1,23 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 env:
-  TERM: alacritty
+  TERM: xterm-256color
 
 window:
   dynamic_title: true
 
 font:
   normal:
-    family: Ubuntu Mono
+    family: Noto Mono
     style: Regular
   bold:
-    family: Ubuntu Mono
+    family: Noto Mono
     style: Bold
   italic:
-    family: Ubuntu Mono
+    family: Noto Mono
     style: Italic
   bold_italic:
-    family: Ubuntu Mono
+    family: Noto Mono
     style: Italic
   size: 11
 
@@ -68,17 +68,17 @@ colors:
   # Normal colors
   normal:
     black: "0x000000"
-    red: "0xfe0100"
-    green: "0x33ff00"
-    yellow: "0xfeff00"
-    blue: "0x0066ff"
-    magenta: "0xcc00ff"
-    cyan: "0x00ffff"
-    white: "0xd0d0d0"
+    red: "0xcc0100"
+    green: "0x23df00"
+    yellow: "0xdddd00"
+    blue: "0x0056df"
+    magenta: "0xac00ef"
+    cyan: "0x00dfdf"
+    white: "0xfff9f2"
 
   # Bright colors
   bright:
-    black: "0x808080"
+    black: "0x707070"
     red: "0xfe0100"
     green: "0x33ff00"
     yellow: "0xfeff00"

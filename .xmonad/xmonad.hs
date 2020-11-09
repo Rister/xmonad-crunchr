@@ -9,6 +9,7 @@
 -- import XMonad.Layout.Spiral
 -- import XMonad.Layout.ThreeColumns
 
+import qualified Data.Map as M
 import System.IO
 import XMonad
 import XMonad.Actions.GridSelect
@@ -18,7 +19,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.WallpaperSetter
 import XMonad.Layout.Accordion
-import XMonad.Layout.Mosaic
+import XMonad.Layout.MosaicAlt
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Roledex
@@ -68,20 +69,21 @@ myLayoutHook =
       avoidStruts $
         noBorders (Full)
           ||| Roledex
-          ||| mosaic 2 [3, 2]
+          ||| MosaicAlt M.empty
           ||| Accordion
     myComsLayouts =
       avoidStruts $
-        mySpacing (mosaic 2 [3, 2])
-          ||| mySpacing (Full)
+        mySpacing $
+          MosaicAlt M.empty
+            ||| Full
     myZKLayouts =
       avoidStruts $
-        mosaic 2 [3, 2]
+        MosaicAlt M.empty
           ||| Accordion
           ||| noBorders Full
     myTermLayouts =
       avoidStruts $
-        mosaic 3 [7, 5]
+        MosaicAlt M.empty
           ||| Accordion
           ||| Roledex
 
