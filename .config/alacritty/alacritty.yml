@@ -4,7 +4,8 @@ env:
   TERM: xterm-256color
 
 window:
-  dynamic_title: true
+  title: Alacritty
+  dynamic_title: false
 
 font:
   normal:
@@ -19,7 +20,7 @@ font:
   bold_italic:
     family: Noto Mono
     style: Italic
-  size: 11
+  size: 9
 
 # colors:
 #   primary:
@@ -93,6 +94,9 @@ bell:
   color: "#ff0000"
 
 background_opacity: 1.0
+
+selection:
+  save_to_clipboard: true
 
 cursor:
   style: Block
