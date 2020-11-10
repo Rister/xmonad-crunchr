@@ -4,7 +4,7 @@ Config {
        , border = TopBM 1
        , bgColor = "black"
        , fgColor = "white"
-       , position = TopSize L 90 24
+       , position = TopSize L 94 24
        , commands = [
                 Run Cpu [
                        "-L","3"

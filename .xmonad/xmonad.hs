@@ -119,7 +119,7 @@ myManageHook =
 
 myStartupHook = do
   -- spawnOnce "nitrogen --restore &" -- set the desktop background
-  spawnOnce "trayer --edge top --align right --widthtype percent --width 11 --margin 0 --padding 6 --SetDockType true --SetPartialStrut true --expand false --monitor primary --transparent true --alpha 1 --tint 0x000000 --height 24 &" -- system tray
+  spawnOnce "trayer --edge top --align right --widthtype percent --width 7 --margin 0 --padding 6 --SetDockType true --SetPartialStrut true --expand false --monitor primary --transparent true --alpha 1 --tint 0x000000 --height 24 &" -- system tray
   spawnOnce "nm-applet &" -- network manager icon
   spawnOnce "volumeicon &" -- Volume tray icon
   spawnOnce "xscreensaver -no-splash &" -- Start the screensaver daemon
