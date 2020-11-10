@@ -1,0 +1,17 @@
+[All Tasks]
+title = All Tasks
+sortexpr = desc:importance
+groupexpr = 
+show_all = 0
+
+[Contexts]
+title = Contexts
+sortexpr = desc:importance
+groupexpr = context
+show_all = 0
+
+[Projects]
+title = Projects
+sortexpr = desc:importance
+groupexpr = project
+show_all = 0
