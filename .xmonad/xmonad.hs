@@ -1,29 +1,21 @@
--- import qualified Data.Text as DT
--- import XMonad.Actions.SpawnOn
--- import XMonad.Layout.Circle
--- import XMonad.Layout.Grid
--- import XMonad.Layout.HintedGrid
--- import XMonad.Layout.ResizableTile
--- import XMonad.Layout.Simplest
--- import XMonad.Layout.SortedLayout
--- import XMonad.Layout.Spiral
--- import XMonad.Layout.ThreeColumns
-
 import qualified Data.Map as M
 import System.IO
 import XMonad
+import XMonad.Actions.DynamicProjects
 import XMonad.Actions.GridSelect
+import XMonad.Actions.SpawnOn
 import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.WallpaperSetter
 import XMonad.Layout.Accordion
 import XMonad.Layout.MosaicAlt
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Roledex
 import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed
+import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
@@ -36,56 +28,124 @@ myNormalBorderColor = "#00FF00"
 
 myBorderWidth = 2
 
-myGap = 2
+myGap = 5
 
 myBorder = Border myGap myGap myGap myGap
 
 myTerminal = "alacritty"
 
+myBrowser = "brave --new-window"
+
 myWorkspaces =
   [ "web",
-    "zk",
-    "coms",
-    "term",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9:DUMP"
+    "zettelkasten",
+    "email",
+    "terminal",
+    "hangouts",
+    "discord",
+    "web1",
+    "coding",
+    "dump"
+  ]
+
+myProjects =
+  [ Project
+      { projectName = "web",
+        projectDirectory = "~/",
+        projectStartHook = Just $ do spawnHere myBrowser
+      },
+    Project
+      { projectName = "zettelkasten",
+        projectDirectory = "~/Documents/MyZettelkasten/",
+        projectStartHook =
+          Just $ do
+            spawnHere "code ~/Documents/MyZettelkasten/MyZettelkasten.code-workspace"
+            spawnHere $ myTerminal ++ " -e topydo prompt"
+      },
+    Project
+      { projectName = "email",
+        projectDirectory = "~/Downloads/",
+        projectStartHook = Just $ do spawnHere "thunderbird"
+      },
+    Project
+      { projectName = "terminal",
+        projectDirectory = "~/",
+        projectStartHook =
+          Just $ do
+            spawnHere myTerminal
+            spawnHere myTerminal
+            spawnHere myTerminal
+      },
+    Project
+      { projectName = "hangouts",
+        projectDirectory = "~/",
+        projectStartHook = Just $ do spawnHere "yakyak"
+      },
+    Project
+      { projectName = "discord",
+        projectDirectory = "~/",
+        projectStartHook = Just $ do spawnHere "discord"
+      },
+    Project
+      { projectName = "web1",
+        projectDirectory = "~/",
+        projectStartHook = Just $ do spawnHere myBrowser
+      },
+    Project
+      { projectName = "coding",
+        projectDirectory = "~/github/",
+        projectStartHook =
+          Just $ do
+            spawnHere myTerminal
+            spawnHere "code"
+      },
+    Project
+      { projectName = "files",
+        projectDirectory = "~/",
+        projectStartHook =
+          Just $ do
+            spawnHere myTerminal
+            spawnHere "nautilus"
+      },
+    Project
+      { projectName = "xmonad",
+        projectDirectory = "~/github/xmonad-crunchr",
+        projectStartHook =
+          Just $ do
+            spawnHere myTerminal
+            spawnHere "code ~/github/xmonad-crunchr/xmonad-crunchr.code-workspace"
+      }
   ]
 
 mySpacing = spacingRaw True myBorder False myBorder True
 
 myLayoutHook =
-  onWorkspace "web" myDefaultLayouts $
-    onWorkspace "zk" myZKLayouts $
-      onWorkspace "coms" myComsLayouts $
-        onWorkspace "term" myTermLayouts $
-          onWorkspaces (map show [5 .. 8]) myDefaultLayouts $
-            onWorkspace "9:DUMP" myDefaultLayouts $
-              smartBorders (layoutHook def)
+  avoidStruts $
+    onWorkspace "zettelkasten" myZKLayouts $
+      onWorkspaces ["email", "discord", "hangouts"] myComsLayouts $
+        onWorkspace "terminal" myTermLayouts $
+          myDefaultLayouts
   where
     myDefaultLayouts =
-      avoidStruts $
-        noBorders (Full)
-          ||| Roledex
-          ||| MosaicAlt M.empty
-          ||| Accordion
+      noBorders Full
+        ||| Roledex
+        ||| MosaicAlt M.empty
+        ||| Accordion
+        ||| simpleTabbed
     myComsLayouts =
-      avoidStruts $
-        mySpacing $
-          MosaicAlt M.empty
-            ||| Full
-    myZKLayouts =
-      avoidStruts $
+      mySpacing $
         MosaicAlt M.empty
-          ||| Accordion
           ||| noBorders Full
+    myZKLayouts =
+      MosaicAlt M.empty
+        ||| Accordion
+        ||| noBorders Full
+        ||| simpleTabbed
     myTermLayouts =
-      avoidStruts $
-        MosaicAlt M.empty
-          ||| Accordion
-          ||| Roledex
+      MosaicAlt M.empty
+        ||| Accordion
+        ||| Roledex
+        ||| simpleTabbed
 
 --      ||| ResizableTall 1 (3 / 100) (1 / 2) []
 --      ||| Mirror (ResizableTall 1 (3 / 100) (1 / 2) [])
@@ -100,26 +160,32 @@ myGSUtils =
 
 -- custom keybindings
 myKeys =
-  [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"), -- Lock screen with Mod-Shift-z`
-  --((mod4Mask, xK_g), goToSelected def),
-    ((mod4Mask, xK_u), runSelectedAction def myGSUtils),
-    ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s"), -- screenshot Window with Ctrl-PrintScreen
-    ((0, xK_Print), spawn "scrot") -- screenshot entire screen with PrintScreen
+  [ -- Lock screen with Mod-Shift-z`
+    ((myModMask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"),
+    -- screenshot Window with Ctrl-PrintScreen
+    ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s"),
+    -- screenshot entire screen with PrintScreen
+    ((0, xK_Print), spawn "scrot"),
+    -- Grid Select the workspace
+    ((myModMask, xK_g), gridselectWorkspace def (\ws -> W.view ws)),
+    ((myModMask .|. shiftMask, xK_g), gridselectWorkspace def (\ws -> W.view ws . W.shift ws)),
+    -- GridSelect some utilities
+    ((myModMask, xK_u), runSelectedAction def myGSUtils),
+    -- Dynamic Project Prompt
+    ((myModMask, xK_backslash), switchProjectPrompt def),
+    ((myModMask .|. shiftMask, xK_backslash), shiftToProjectPrompt def)
   ]
 
 myManageHook =
   composeAll
-    [ className =? "Thunderbird" --> doShift "coms",
-      className =? "Discord" --> doShift "coms",
-      className =? "yakyak" --> doShift "coms",
-      className =? "Brave" --> doShift "web",
-      className =? "MyZettelkasten" --> doShift "zk",
-      manageDocks
+    [ manageDocks
     ]
 
 myStartupHook = do
-  -- spawnOnce "nitrogen --restore &" -- set the desktop background
-  spawnOnce "trayer --edge top --align right --widthtype percent --width 7 --margin 0 --padding 6 --SetDockType true --SetPartialStrut true --expand false --monitor primary --transparent true --alpha 1 --tint 0x000000 --height 24 &" -- system tray
+  -- set the desktop background
+  spawnOnce "nitrogen --restore &"
+  -- system tray
+  spawnOnce "trayer --edge top --align right --widthtype percent --width 7 --margin 0 --padding 6 --SetDockType true --SetPartialStrut true --expand false --monitor primary --transparent true --alpha 1 --tint 0x000000 --height 24 &"
   spawnOnce "nm-applet &" -- network manager icon
   spawnOnce "volumeicon &" -- Volume tray icon
   spawnOnce "xscreensaver -no-splash &" -- Start the screensaver daemon
@@ -129,29 +195,29 @@ main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $
     docks $
-      ewmh
-        def
-          { layoutHook = myLayoutHook,
-            startupHook = myStartupHook,
-            manageHook = myManageHook <+> manageHook def,
-            normalBorderColor = myNormalBorderColor,
-            focusedBorderColor = myFocusedBorderColor,
-            borderWidth = myBorderWidth,
-            terminal = myTerminal,
-            modMask = myModMask,
-            logHook = do
-              updatePointer (1, 1) (0, 0)
-              wallpaperSetter
-                defWallpaperConf
-                  { wallpapers =
-                      defWPNames myWorkspaces
-                        <> WallpaperList
-                          [ ("9:DUMP", WallpaperFix "9.jpg")
-                          ]
-                  }
-              dynamicLogWithPP xmobarPP {ppOutput = hPutStrLn xmproc, ppTitle = xmobarColor "#00FF30" "" . shorten 150},
-            focusFollowsMouse = False,
-            clickJustFocuses = False,
-            workspaces = myWorkspaces
-          }
-        `additionalKeys` myKeys
+      ewmh $
+        dynamicProjects
+          myProjects
+          def
+            { normalBorderColor = myNormalBorderColor,
+              focusedBorderColor = myFocusedBorderColor,
+              terminal = myTerminal,
+              layoutHook = myLayoutHook,
+              manageHook = myManageHook <+> manageHook def,
+              workspaces = myWorkspaces,
+              modMask = myModMask,
+              borderWidth = myBorderWidth,
+              logHook = do
+                updatePointer (1, 1) (0, 0)
+                dynamicLogWithPP
+                  xmobarPP
+                    { ppHidden = (\foo -> ""),
+                      ppUrgent = xmobarColor "#FF0000" "",
+                      ppTitle = xmobarColor "#00FF30" "" . shorten 150,
+                      ppOutput = hPutStrLn xmproc
+                    },
+              startupHook = myStartupHook,
+              focusFollowsMouse = False,
+              clickJustFocuses = False
+            }
+          `additionalKeys` myKeys
