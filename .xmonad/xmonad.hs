@@ -123,7 +123,9 @@ myLayoutHook =
   avoidStruts $
     onWorkspace "zettelkasten" myZKLayouts $
       onWorkspaces ["email", "discord", "hangouts"] myComsLayouts $
-        onWorkspace "terminal" myTermLayouts $
+        onWorkspace
+          "terminal"
+          myTermLayouts
           myDefaultLayouts
   where
     myDefaultLayouts =
@@ -152,10 +154,10 @@ myLayoutHook =
 
 -- Settings for my utility menu
 myGSUtils =
-  [ ("XRANDR - Single Screen", (spawn "bash ~/.xprofile.onescreen")),
-    ("XRANDR - Dual Screens", (spawn "bash ~/.xprofile")),
-    ("Kill Touchpad", (spawn "synclient TouchpadOff=1")),
-    ("Revive Touchpad", (spawn "synclient TouchpadOff=0"))
+  [ ("XRANDR - Single Screen", spawn "bash ~/.xprofile.onescreen"),
+    ("XRANDR - Dual Screens", spawn "bash ~/.xprofile"),
+    ("Kill Touchpad", spawn "synclient TouchpadOff=1"),
+    ("Revive Touchpad", spawn "synclient TouchpadOff=0")
   ]
 
 -- custom keybindings
