@@ -25,71 +25,39 @@ font:
     style: Italic
   size: 8
 
-# colors:
-#   primary:
-#     background: "0x000000"
-#     foreground: "0xffffff"
-#     dim_foreground: "0xffbbff"
-#     bright_foreground: "0xffffbb"
-#   normal:
-#     black: "0x000000"
-#     red: "0xff0000"
-#     green: "0x44dd44"
-#     yellow: "0xeeee33"
-#     blue: "0x6666ff"
-#     magenta: "0xff00ff"
-#     cyan: "0x00ffff"
-#     white: "0xffffff"
-#   bright:
-#     black: "0x444444"
-#     red: "0xff4444"
-#     green: "0x00ff00"
-#     yellow: "0xffff44"
-#     blue: "0x0000ff"
-#     magenta: "0xff44ff"
-#     cyan: "0x66ffff"
-#     white: "0xbbbbbb"
-#   dim:
-#     black: "0x222222"
-#     red: "0xbb0000"
-#     green: "0x00bb00"
-#     yellow: "0xbbbb00"
-#     blue: "0x0000bb"
-#     magenta: "0xbb00bb"
-#     cyan: "0x00bbbb"
-#     white: "0xdddddd"
-
-# Colors (Hyper)
-# colors:
-#   # Default colors
-#   primary:
-#     background: "0x000000"
-#     foreground: "0xffffff"
-#   cursor:
-#     text: "0xF81CE5"
-#     cursor: "0xffffff"
-
-#   # Normal colors
-#   normal:
-#     black: "0x000000"
-#     red: "0xcc0100"
-#     green: "0x23df00"
-#     yellow: "0xdddd00"
-#     blue: "0x0056df"
-#     magenta: "0xac00ef"
-#     cyan: "0x00dfdf"
-#     white: "0xfff9f2"
-
-#   # Bright colors
-#   bright:
-#     black: "0x707070"
-#     red: "0xfe0100"
-#     green: "0x33ff00"
-#     yellow: "0xfeff00"
-#     blue: "0x0066ff"
-#     magenta: "0xcc00ff"
-#     cyan: "0x00ffff"
-#     white: "0xFFFFFF"
+colors:
+  primary:
+    background: "0x000000"
+    foreground: "0xffffff"
+    dim_foreground: "0xffbbff"
+    bright_foreground: "0xffffbb"
+  normal:
+    black: "0x000000"
+    red: "0xff0000"
+    green: "0x44dd44"
+    yellow: "0xeeee33"
+    blue: "0x6666ff"
+    magenta: "0xff00ff"
+    cyan: "0x00ffff"
+    white: "0xffffff"
+  bright:
+    black: "0x444444"
+    red: "0xff4444"
+    green: "0x00ff00"
+    yellow: "0xffff44"
+    blue: "0x0000ff"
+    magenta: "0xff44ff"
+    cyan: "0x66ffff"
+    white: "0xbbbbbb"
+  dim:
+    black: "0x222222"
+    red: "0xbb0000"
+    green: "0x00bb00"
+    yellow: "0xbbbb00"
+    blue: "0x0000bb"
+    magenta: "0xbb00bb"
+    cyan: "0x00bbbb"
+    white: "0xdddddd"
 
 bell:
   animation: EaseOutExpo
@@ -103,173 +71,3 @@ selection:
 
 cursor:
   style: Block
-# Base16 PaperColor Light 256 - alacritty color config
-# Jon Leopard (http://github.com/jonleopard) based on PaperColor Theme (https://github.com/NLKNguyen/papercolor-theme)
-colors:
-  # Default colors
-  primary:
-    background: "0xffffef"
-    foreground: "0x444444"
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: "0xeeeeee"
-    cursor: "0x444444"
-
-  # Normal colors
-  normal:
-    black: "0xeeeeee"
-    red: "0xbcbcbc"
-    green: "0x8700af"
-    yellow: "0xd70087"
-    blue: "0xd75f00"
-    magenta: "0x005faf"
-    cyan: "0xd75f00"
-    white: "0x444444"
-
-  # Bright colors
-  bright:
-    black: "0x5f8700"
-    red: "0xbcbcbc"
-    green: "0x8700af"
-    yellow: "0xd70087"
-    blue: "0xd75f00"
-    magenta: "0x005faf"
-    cyan: "0xd75f00"
-    white: "0x878787"
-
-  indexed_colors:
-    - { index: 16, color: "0xd70000" }
-    - { index: 17, color: "0x005f87" }
-    - { index: 18, color: "0xaf0000" }
-    - { index: 19, color: "0x008700" }
-    - { index: 20, color: "0x0087af" }
-    - { index: 21, color: "0x005f87" }
-# # Base16 Solarized Light 256 - alacritty color config
-# # Ethan Schoonover (modified by aramisgithub)
-# colors:
-#   # Default colors
-#   primary:
-#     background: "0xfdf6e3"
-#     foreground: "0x586e75"
-
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: "0xfdf6e3"
-#     cursor: "0x586e75"
-
-#   # Normal colors
-#   normal:
-#     black: "0xfdf6e3"
-#     red: "0xdc322f"
-#     green: "0x859900"
-#     yellow: "0xb58900"
-#     blue: "0x268bd2"
-#     magenta: "0x6c71c4"
-#     cyan: "0x2aa198"
-#     white: "0x586e75"
-
-#   # Bright colors
-#   bright:
-#     black: "0x839496"
-#     red: "0xdc322f"
-#     green: "0x859900"
-#     yellow: "0xb58900"
-#     blue: "0x268bd2"
-#     magenta: "0x6c71c4"
-#     cyan: "0x2aa198"
-#     white: "0x002b36"
-
-#   indexed_colors:
-#     - { index: 16, color: "0xcb4b16" }
-#     - { index: 17, color: "0xd33682" }
-#     - { index: 18, color: "0xeee8d5" }
-#     - { index: 19, color: "0x93a1a1" }
-#     - { index: 20, color: "0x657b83" }
-#     - { index: 21, color: "0x073642" }
-
-# # Base16 Cupertino 256 - alacritty color config
-# # Defman21
-# colors:
-#   # Default colors
-#   primary:
-#     background: "0xffffff"
-#     foreground: "0x404040"
-
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: "0xffffff"
-#     cursor: "0x404040"
-
-#   # Normal colors
-#   normal:
-#     black: "0xffffff"
-#     red: "0xc41a15"
-#     green: "0x007400"
-#     yellow: "0x826b28"
-#     blue: "0x0000ff"
-#     magenta: "0xa90d91"
-#     cyan: "0x318495"
-#     white: "0x404040"
-
-#   # Bright colors
-#   bright:
-#     black: "0x808080"
-#     red: "0xc41a15"
-#     green: "0x007400"
-#     yellow: "0x826b28"
-#     blue: "0x0000ff"
-#     magenta: "0xa90d91"
-#     cyan: "0x318495"
-#     white: "0x5e5e5e"
-
-#   indexed_colors:
-#     - { index: 16, color: "0xeb8500" }
-#     - { index: 17, color: "0x826b28" }
-#     - { index: 18, color: "0xc0c0c0" }
-#     - { index: 19, color: "0xc0c0c0" }
-#     - { index: 20, color: "0x808080" }
-#     - { index: 21, color: "0x404040" }
-
-# # Base16 Bright 256 - alacritty color config
-# # Chris Kempson (http://chriskempson.com)
-# colors:
-#   # Default colors
-#   primary:
-#     background: "0x000000"
-#     foreground: "0xe0e0e0"
-
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: "0x000000"
-#     cursor: "0xe0e0e0"
-
-#   # Normal colors
-#   normal:
-#     black: "0x000000"
-#     red: "0xfb0120"
-#     green: "0xa1c659"
-#     yellow: "0xfda331"
-#     blue: "0x6fb3d2"
-#     magenta: "0xd381c3"
-#     cyan: "0x76c7b7"
-#     white: "0xe0e0e0"
-
-#   # Bright colors
-#   bright:
-#     black: "0xb0b0b0"
-#     red: "0xfb0120"
-#     green: "0xa1c659"
-#     yellow: "0xfda331"
-#     blue: "0x6fb3d2"
-#     magenta: "0xd381c3"
-#     cyan: "0x76c7b7"
-#     white: "0xffffff"
-
-#   indexed_colors:
-#     - { index: 16, color: "0xfc6d24" }
-#     - { index: 17, color: "0xbe643c" }
-#     - { index: 18, color: "0x303030" }
-#     - { index: 19, color: "0x505050" }
-#     - { index: 20, color: "0xd0d0d0" }
-#     - { index: 21, color: "0xf5f5f5" }
