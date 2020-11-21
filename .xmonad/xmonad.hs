@@ -9,11 +9,14 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Accordion
+import XMonad.Layout.Mosaic
 import XMonad.Layout.MosaicAlt
 import XMonad.Layout.NoBorders
+import XMonad.Layout.OneBig
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Roledex
 import XMonad.Layout.Spacing
+import XMonad.Layout.Square
 import XMonad.Layout.Tabbed
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
@@ -39,13 +42,13 @@ myBrowser = "brave --new-window"
 myWorkspaces =
   [ "web",
     "zettelkasten",
-    "email",
+    "coms",
     "terminal",
-    "hangouts",
-    "discord",
-    "web1",
-    "coding",
-    "dump"
+    "yellow",
+    "magenta",
+    "cyan",
+    "emacs",
+    "coding"
   ]
 
 myProjects =
@@ -60,12 +63,17 @@ myProjects =
         projectStartHook =
           Just $ do
             spawnHere "code ~/Documents/MyZettelkasten/MyZettelkasten.code-workspace"
-            spawnHere $ myTerminal ++ " -e topydo prompt"
+            spawnHere $ myTerminal ++ " -e task shell"
+            spawnHere $ myTerminal ++ " -e watch -tc -n 35 timew"
+            spawnHere $ myTerminal
       },
     Project
-      { projectName = "email",
+      { projectName = "coms",
         projectDirectory = "~/Downloads/",
-        projectStartHook = Just $ do spawnHere "thunderbird"
+        projectStartHook =
+          Just $ do
+            spawnHere "thunderbird"
+            spawnHere "discord"
       },
     Project
       { projectName = "terminal",
@@ -75,21 +83,6 @@ myProjects =
             spawnHere myTerminal
             spawnHere myTerminal
             spawnHere myTerminal
-      },
-    Project
-      { projectName = "hangouts",
-        projectDirectory = "~/",
-        projectStartHook = Just $ do spawnHere "yakyak"
-      },
-    Project
-      { projectName = "discord",
-        projectDirectory = "~/",
-        projectStartHook = Just $ do spawnHere "discord"
-      },
-    Project
-      { projectName = "web1",
-        projectDirectory = "~/",
-        projectStartHook = Just $ do spawnHere myBrowser
       },
     Project
       { projectName = "coding",
@@ -114,6 +107,14 @@ myProjects =
           Just $ do
             spawnHere myTerminal
             spawnHere "code ~/github/xmonad-crunchr/xmonad-crunchr.code-workspace"
+      },
+    Project
+      { projectName = "emacs",
+        projectDirectory = "~/",
+        projectStartHook =
+          Just $ do
+            spawnHere myTerminal
+            spawnHere "emacs"
       }
   ]
 
@@ -122,35 +123,29 @@ mySpacing = spacingRaw True myBorder False myBorder True
 myLayoutHook =
   avoidStruts $
     onWorkspace "zettelkasten" myZKLayouts $
-      onWorkspaces ["email", "discord", "hangouts"] myComsLayouts $
-        onWorkspace
-          "terminal"
-          myTermLayouts
+      onWorkspaces ["coms"] myComsLayouts $
+        onWorkspace "terminal" myTermLayouts $
           myDefaultLayouts
   where
     myDefaultLayouts =
-      noBorders Full
-        ||| Roledex
-        ||| MosaicAlt M.empty
+      Full
+        ||| mosaic 3 [5, 3]
         ||| Accordion
         ||| simpleTabbed
+        ||| OneBig (3 / 4) (3 / 4)
     myComsLayouts =
-      mySpacing $
-        MosaicAlt M.empty
-          ||| noBorders Full
+      simpleTabbed
+        ||| mosaic 3 [5, 3]
+        ||| OneBig (3 / 4) (3 / 4)
     myZKLayouts =
-      MosaicAlt M.empty
-        ||| Accordion
-        ||| noBorders Full
+      OneBig (4 / 5) (4 / 5)
+        ||| mosaic 3 [5, 2]
         ||| simpleTabbed
     myTermLayouts =
-      MosaicAlt M.empty
+      mosaic 3 [5, 3]
         ||| Accordion
-        ||| Roledex
         ||| simpleTabbed
-
---      ||| ResizableTall 1 (3 / 100) (1 / 2) []
---      ||| Mirror (ResizableTall 1 (3 / 100) (1 / 2) [])
+        ||| OneBig (3 / 5) (3 / 5)
 
 -- Settings for my utility menu
 myGSUtils =
