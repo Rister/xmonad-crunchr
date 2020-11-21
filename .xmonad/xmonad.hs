@@ -1,27 +1,71 @@
-import qualified Data.Map as M
-import System.IO
+import System.IO (hPutStrLn)
 import XMonad
+  ( Default (def),
+    Full (Full),
+    XConfig
+      ( borderWidth,
+        clickJustFocuses,
+        focusFollowsMouse,
+        focusedBorderColor,
+        layoutHook,
+        logHook,
+        manageHook,
+        modMask,
+        normalBorderColor,
+        startupHook,
+        terminal,
+        workspaces
+      ),
+    composeAll,
+    controlMask,
+    mod4Mask,
+    shiftMask,
+    spawn,
+    xK_Print,
+    xK_backslash,
+    xK_g,
+    xK_u,
+    xK_z,
+    xmonad,
+    (.|.),
+    (<+>),
+    (|||),
+  )
 import XMonad.Actions.DynamicProjects
+  ( Project (Project, projectDirectory, projectName, projectStartHook),
+    dynamicProjects,
+    shiftToProjectPrompt,
+    switchProjectPrompt,
+  )
 import XMonad.Actions.GridSelect
-import XMonad.Actions.SpawnOn
-import XMonad.Actions.UpdatePointer
+  ( gridselectWorkspace,
+    runSelectedAction,
+  )
+import XMonad.Actions.SpawnOn (spawnHere)
+import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Layout.Accordion
-import XMonad.Layout.Mosaic
-import XMonad.Layout.MosaicAlt
-import XMonad.Layout.NoBorders
-import XMonad.Layout.OneBig
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.Roledex
-import XMonad.Layout.Spacing
-import XMonad.Layout.Square
-import XMonad.Layout.Tabbed
+  ( PP (ppHidden, ppOutput, ppTitle, ppUrgent),
+    dynamicLogWithPP,
+    shorten,
+    xmobarColor,
+    xmobarPP,
+  )
+import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
+import XMonad.Layout.Accordion (Accordion (Accordion))
+import XMonad.Layout.Mosaic (mosaic)
+import XMonad.Layout.MosaicAlt ()
+import XMonad.Layout.NoBorders ()
+import XMonad.Layout.OneBig (OneBig (OneBig))
+import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
+import XMonad.Layout.Roledex ()
+import XMonad.Layout.Spacing (Border (Border), spacingRaw)
+import XMonad.Layout.Square ()
+import XMonad.Layout.Tabbed (simpleTabbed)
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
+import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.SpawnOnce (spawnOnce)
 
 myModMask = mod4Mask -- set mod key to the windows (super) key
 
