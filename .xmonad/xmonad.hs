@@ -159,6 +159,13 @@ myProjects =
           Just $ do
             spawnHere myTerminal
             spawnHere "emacs"
+      },
+    Project
+      { projectName = "obsidian",
+        projectDirectory = "~/Documents/MyZettelkasten/",
+        projectStartHook =
+          Just $ do
+            spawnHere "obsidian"
       }
   ]
 
