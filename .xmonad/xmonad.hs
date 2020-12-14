@@ -69,11 +69,11 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 
 myModMask = mod4Mask -- set mod key to the windows (super) key
 
-myFocusedBorderColor = "#FF00FF"
+myFocusedBorderColor = "#FF7700"
 
-myNormalBorderColor = "#00FF00"
+myNormalBorderColor = "#000000"
 
-myBorderWidth = 2
+myBorderWidth = 1
 
 myGap = 5
 
@@ -107,8 +107,6 @@ myProjects =
         projectStartHook =
           Just $ do
             spawnHere "code ~/Documents/MyZettelkasten/MyZettelkasten.code-workspace"
-            spawnHere $ myTerminal ++ " -e task shell"
-            spawnHere $ myTerminal ++ " -e watch -tc -n 35 timew"
             spawnHere $ myTerminal
       },
     Project
@@ -116,7 +114,6 @@ myProjects =
         projectDirectory = "~/Downloads/",
         projectStartHook =
           Just $ do
-            spawnHere "thunderbird"
             spawnHere "discord"
       },
     Project
@@ -142,15 +139,7 @@ myProjects =
         projectStartHook =
           Just $ do
             spawnHere myTerminal
-            spawnHere "nautilus"
-      },
-    Project
-      { projectName = "xmonad",
-        projectDirectory = "~/github/xmonad-crunchr",
-        projectStartHook =
-          Just $ do
-            spawnHere myTerminal
-            spawnHere "code ~/github/xmonad-crunchr/xmonad-crunchr.code-workspace"
+            spawnHere "thunar"
       },
     Project
       { projectName = "emacs",
@@ -176,32 +165,36 @@ myLayoutHook =
     onWorkspace "zettelkasten" myZKLayouts $
       onWorkspaces ["coms"] myComsLayouts $
         onWorkspace "terminal" myTermLayouts $
-          myDefaultLayouts
+          onWorkspace "emacs" myEmacsLayouts $
+            myDefaultLayouts
   where
     myDefaultLayouts =
-      Full
-        ||| mosaic 3 [5, 3]
-        ||| Accordion
-        ||| simpleTabbed
+      simpleTabbed
+        ||| mySpacing (mosaic 3 [5, 3])
+        ||| mySpacing Accordion
+        ||| Full
         ||| OneBig (3 / 4) (3 / 4)
     myComsLayouts =
       simpleTabbed
-        ||| mosaic 3 [5, 3]
-        ||| OneBig (3 / 4) (3 / 4)
+        ||| mySpacing (mosaic 3 [5, 3])
+        ||| mySpacing (OneBig (3 / 4) (3 / 4))
     myZKLayouts =
       OneBig (4 / 5) (4 / 5)
         ||| mosaic 3 [5, 2]
         ||| simpleTabbed
     myTermLayouts =
-      mosaic 3 [5, 3]
-        ||| Accordion
+      mySpacing (mosaic 3 [5, 3])
+        ||| mySpacing ( Accordion )
         ||| simpleTabbed
-        ||| OneBig (3 / 5) (3 / 5)
+        ||| mySpacing (OneBig (3 / 5) (3 / 5))
+    myEmacsLayouts =
+      Full
 
 -- Settings for my utility menu
 myGSUtils =
   [ ("XRANDR - Single Screen", spawn "bash ~/.xprofile.onescreen"),
-    ("XRANDR - Dual Screens", spawn "bash ~/.xprofile"),
+    ("XRANDR - LVDS + VGA", spawn "bash ~/.xprofile"),
+    ("XRANDR - VGA + HDMI", spawn "bash ~/.xprofile.twomonitors"),
     ("Kill Touchpad", spawn "synclient TouchpadOff=1"),
     ("Revive Touchpad", spawn "synclient TouchpadOff=0")
   ]
