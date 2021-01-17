@@ -85,14 +85,14 @@ myBrowser = "brave --new-window"
 
 myWorkspaces =
   [ "web",
-    "zettelkasten",
-    "coms",
+    "RED",
+    "BLUE",
     "terminal",
     "yellow",
     "magenta",
     "cyan",
     "emacs",
-    "coding"
+    "files"
   ]
 
 myProjects =
@@ -139,7 +139,7 @@ myProjects =
         projectStartHook =
           Just $ do
             spawnHere myTerminal
-            spawnHere "thunar"
+            spawnHere "nautilus"
       },
     Project
       { projectName = "emacs",
